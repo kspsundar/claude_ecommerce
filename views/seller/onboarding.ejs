@@ -1,0 +1,40 @@
+<h1 class="h3 mb-4">Become a seller</h1>
+
+<% if (profile) { %>
+  <div class="alert alert-info">
+    Your application for <strong><%= profile.storeName %></strong> is currently
+    <strong><%= profile.status %></strong>.
+    <% if (profile.status === 'approved') { %>
+      Go to your <a href="/seller/dashboard">seller dashboard</a>.
+    <% } %>
+  </div>
+<% } else { %>
+  <form action="/seller/onboarding" method="POST" enctype="multipart/form-data" class="col-md-6">
+    <div class="mb-3">
+      <label class="form-label">Store name</label>
+      <input type="text" name="storeName" class="form-control" required>
+    </div>
+    <div class="mb-3">
+      <label class="form-label">Store description</label>
+      <textarea name="description" class="form-control" rows="3"></textarea>
+    </div>
+    <h2 class="h6 mt-4">Payout details</h2>
+    <div class="mb-3">
+      <label class="form-label">Bank account name</label>
+      <input type="text" name="bankAccountName" class="form-control">
+    </div>
+    <div class="mb-3">
+      <label class="form-label">Bank account number</label>
+      <input type="text" name="bankAccountNumber" class="form-control">
+    </div>
+    <div class="mb-3">
+      <label class="form-label">IFSC / routing code</label>
+      <input type="text" name="bankIFSC" class="form-control">
+    </div>
+    <div class="mb-3">
+      <label class="form-label">ID / KYC document (optional)</label>
+      <input type="file" name="document" class="form-control">
+    </div>
+    <button type="submit" class="btn btn-primary">Submit application</button>
+  </form>
+<% } %>

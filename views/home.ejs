@@ -1,0 +1,22 @@
+<div class="p-5 mb-4 bg-light rounded-3">
+  <h1 class="display-6">Welcome to MarketPlace</h1>
+  <p class="lead">Shop from independent sellers, all in one place.</p>
+  <a class="btn btn-primary" href="/products">Browse all products</a>
+</div>
+
+<h2 class="h4 mb-3">Shop by category</h2>
+<div class="mb-4 d-flex flex-wrap gap-2">
+  <% categories.forEach(function(cat) { %>
+    <a href="/categories/<%= cat.slug %>" class="btn btn-outline-secondary btn-sm"><%= cat.name %></a>
+  <% }) %>
+</div>
+
+<h2 class="h4 mb-3">Newest products</h2>
+<div class="row">
+  <% if (!products.length) { %>
+    <p class="text-muted">No products yet.</p>
+  <% } %>
+  <% products.forEach(function(product) { %>
+    <%- include('partials/productCard', { product }) %>
+  <% }) %>
+</div>

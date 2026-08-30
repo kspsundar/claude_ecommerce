@@ -1,0 +1,47 @@
+<div class="row">
+  <aside class="col-md-3 mb-4">
+    <h2 class="h6">Categories</h2>
+    <ul class="list-unstyled">
+      <li><a href="/products">All</a></li>
+      <% categories.forEach(function(cat) { %>
+        <li><a href="/categories/<%= cat.slug %>" class="<%= typeof activeCategory !== 'undefined' && activeCategory && activeCategory.id === cat.id ? 'fw-bold' : '' %>"><%= cat.name %></a></li>
+      <% }) %>
+    </ul>
+    <hr>
+    <h2 class="h6">Filter</h2>
+    <form method="GET" action="/products">
+      <% if (query.q) { %><input type="hidden" name="q" value="<%= query.q %>"><% } %>
+      <div class="mb-2">
+        <label class="form-label small">Min price</label>
+        <input type="number" name="minPrice" class="form-control form-control-sm" value="<%= query.minPrice || '' %>">
+      </div>
+      <div class="mb-2">
+        <label class="form-label small">Max price</label>
+        <input type="number" name="maxPrice" class="form-control form-control-sm" value="<%= query.maxPrice || '' %>">
+      </div>
+      <div class="mb-2">
+        <label class="form-label small">Sort by</label>
+        <select name="sort" class="form-select form-select-sm">
+          <option value="newest" <%= query.sort === 'newest' ? 'selected' : '' %>>Newest</option>
+          <option value="oldest" <%= query.sort === 'oldest' ? 'selected' : '' %>>Oldest</option>
+          <option value="price_asc" <%= query.sort === 'price_asc' ? 'selected' : '' %>>Price: Low to High</option>
+          <option value="price_desc" <%= query.sort === 'price_desc' ? 'selected' : '' %>>Price: High to Low</option>
+        </select>
+      </div>
+      <button class="btn btn-sm btn-primary w-100" type="submit">Apply</button>
+    </form>
+  </aside>
+
+  <section class="col-md-9">
+    <h1 class="h4 mb-3"><%= typeof activeCategory !== 'undefined' && activeCategory ? activeCategory.name : (query.q ? 'Search results for "' + query.q + '"' : 'All products') %></h1>
+    <div class="row">
+      <% if (!products.length) { %>
+        <p class="text-muted">No products found.</p>
+      <% } %>
+      <% products.forEach(function(product) { %>
+        <%- include('../partials/productCard', { product }) %>
+      <% }) %>
+    </div>
+    <%- include('../partials/pagination') %>
+  </section>
+</div>

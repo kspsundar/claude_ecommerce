@@ -1,0 +1,17 @@
+<h1 class="h3 mb-4">All orders</h1>
+
+<table class="table align-middle">
+  <thead><tr><th>Order</th><th>Buyer</th><th>Total</th><th>Status</th><th>Payment</th><th></th></tr></thead>
+  <tbody>
+    <% orders.forEach(function(o) { %>
+      <tr>
+        <td>#<%= o.id %></td>
+        <td><%= o.buyer ? o.buyer.name : '' %></td>
+        <td>$<%= o.totalAmount.toFixed(2) %></td>
+        <td><span class="badge bg-secondary"><%= o.status %></span></td>
+        <td><span class="badge bg-secondary"><%= o.paymentStatus %></span></td>
+        <td><a href="/admin/orders/<%= o.id %>" class="btn btn-sm btn-outline-primary">View</a></td>
+      </tr>
+    <% }) %>
+  </tbody>
+</table>

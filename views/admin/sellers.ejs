@@ -1,0 +1,24 @@
+<h1 class="h3 mb-4">Manage sellers</h1>
+
+<table class="table align-middle">
+  <thead><tr><th>Store</th><th>Owner</th><th>Status</th><th>Actions</th></tr></thead>
+  <tbody>
+    <% sellers.forEach(function(s) { %>
+      <tr>
+        <td><%= s.storeName %></td>
+        <td><%= s.User ? s.User.name + ' (' + s.User.email + ')' : '' %></td>
+        <td><span class="badge bg-secondary"><%= s.status %></span></td>
+        <td class="d-flex gap-1">
+          <% ['approved', 'rejected', 'suspended', 'pending'].forEach(function(st) { %>
+            <% if (st !== s.status) { %>
+              <form action="/admin/sellers/<%= s.id %>/status" method="POST">
+                <input type="hidden" name="status" value="<%= st %>">
+                <button class="btn btn-sm btn-outline-primary"><%= st %></button>
+              </form>
+            <% } %>
+          <% }) %>
+        </td>
+      </tr>
+    <% }) %>
+  </tbody>
+</table>

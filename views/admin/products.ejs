@@ -1,0 +1,28 @@
+<h1 class="h3 mb-4">Moderate products</h1>
+
+<% if (!pending.length) { %>
+  <p class="text-muted">No products awaiting review.</p>
+<% } %>
+
+<table class="table align-middle">
+  <thead><tr><th>Title</th><th>Seller</th><th>Price</th><th>Actions</th></tr></thead>
+  <tbody>
+    <% pending.forEach(function(p) { %>
+      <tr>
+        <td><%= p.title %></td>
+        <td><%= p.seller ? p.seller.storeName : '' %></td>
+        <td>$<%= p.price.toFixed(2) %></td>
+        <td class="d-flex gap-1">
+          <form action="/admin/products/<%= p.id %>/status" method="POST">
+            <input type="hidden" name="status" value="approved">
+            <button class="btn btn-sm btn-success">Approve</button>
+          </form>
+          <form action="/admin/products/<%= p.id %>/status" method="POST">
+            <input type="hidden" name="status" value="rejected">
+            <button class="btn btn-sm btn-outline-danger">Reject</button>
+          </form>
+        </td>
+      </tr>
+    <% }) %>
+  </tbody>
+</table>

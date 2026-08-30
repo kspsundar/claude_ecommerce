@@ -1,0 +1,24 @@
+<h1 class="h3 mb-4">Manage users</h1>
+
+<table class="table align-middle">
+  <thead><tr><th>Name</th><th>Email</th><th>Role</th><th>Status</th><th></th></tr></thead>
+  <tbody>
+    <% users.forEach(function(u) { %>
+      <tr>
+        <td><%= u.name %></td>
+        <td><%= u.email %></td>
+        <td><span class="badge bg-info text-dark"><%= u.role %></span></td>
+        <td><span class="badge <%= u.isActive ? 'bg-success' : 'bg-danger' %>"><%= u.isActive ? 'Active' : 'Banned' %></span></td>
+        <td>
+          <% if (u.role !== 'admin') { %>
+            <% if (u.isActive) { %>
+              <form action="/admin/users/<%= u.id %>/ban" method="POST"><button class="btn btn-sm btn-outline-danger">Ban</button></form>
+            <% } else { %>
+              <form action="/admin/users/<%= u.id %>/unban" method="POST"><button class="btn btn-sm btn-outline-success">Unban</button></form>
+            <% } %>
+          <% } %>
+        </td>
+      </tr>
+    <% }) %>
+  </tbody>
+</table>

@@ -1,0 +1,26 @@
+<h1 class="h3 mb-4">Order #<%= order.id %></h1>
+
+<p>
+  Buyer: <%= order.buyer ? order.buyer.name + ' (' + order.buyer.email + ')' : '' %><br>
+  Status: <span class="badge bg-secondary"><%= order.status %></span> &middot;
+  Payment: <span class="badge bg-secondary"><%= order.paymentStatus %></span> &middot;
+  Placed: <%= order.createdAt.toDateString() %>
+</p>
+
+<table class="table">
+  <thead><tr><th>Product</th><th>Seller</th><th>Qty</th><th>Price</th><th>Status</th></tr></thead>
+  <tbody>
+    <% order.items.forEach(function(item) { %>
+      <tr>
+        <td><%= item.titleSnapshot %></td>
+        <td><%= item.seller ? item.seller.storeName : '' %></td>
+        <td><%= item.quantity %></td>
+        <td>$<%= item.price.toFixed(2) %></td>
+        <td><span class="badge bg-secondary"><%= item.status %></span></td>
+      </tr>
+    <% }) %>
+  </tbody>
+  <tfoot>
+    <tr><th colspan="3"></th><th>Total</th><th>$<%= order.totalAmount.toFixed(2) %></th></tr>
+  </tfoot>
+</table>

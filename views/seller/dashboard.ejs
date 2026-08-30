@@ -1,0 +1,12 @@
+<h1 class="h3 mb-4"><%= profile.storeName %> dashboard</h1>
+
+<div class="row mb-4">
+  <div class="col-md-4"><div class="card text-center p-3"><div class="h4"><%= stats.productCount %></div><div class="text-muted">Products</div></div></div>
+  <div class="col-md-4"><div class="card text-center p-3"><div class="h4"><%= stats.orderCount %></div><div class="text-muted">Order line items</div></div></div>
+  <div class="col-md-4"><div class="card text-center p-3"><div class="h4">$<%= stats.revenue.toFixed(2) %></div><div class="text-muted">Revenue</div></div></div>
+</div>
+
+<div class="d-flex gap-2">
+  <a href="/seller/products" class="btn btn-primary">Manage products</a>
+  <a href="/seller/orders" class="btn btn-outline-primary">View orders</a>
+</div>
