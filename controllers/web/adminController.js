@@ -1,8 +1,10 @@
+const path = require('path');
 const adminService = require('../../services/adminService');
 const sellerService = require('../../services/sellerService');
 const productService = require('../../services/productService');
 const categoryService = require('../../services/categoryService');
 const orderService = require('../../services/orderService');
+const { kycUploadDir } = require('../../middleware/uploadKyc');
 
 exports.dashboard = async (req, res) => {
   const stats = await adminService.getDashboardStats();
@@ -29,6 +31,15 @@ exports.unbanUser = async (req, res) => {
 exports.listSellers = async (req, res) => {
   const sellers = await adminService.listSellers();
   res.render('admin/sellers', { title: 'Manage sellers', sellers });
+};
+
+exports.downloadSellerDocument = async (req, res) => {
+  const profile = await sellerService.getProfileById(req.params.id);
+  if (!profile || !profile.documentPath) {
+    req.flash('error', 'No KYC document on file for that seller.');
+    return res.redirect('/admin/sellers');
+  }
+  res.sendFile(path.join(kycUploadDir, path.basename(profile.documentPath)));
 };
 
 exports.setSellerStatus = async (req, res) => {

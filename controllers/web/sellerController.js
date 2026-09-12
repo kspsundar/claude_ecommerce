@@ -1,8 +1,10 @@
+const path = require('path');
 const sellerService = require('../../services/sellerService');
 const productService = require('../../services/productService');
 const categoryService = require('../../services/categoryService');
 const orderService = require('../../services/orderService');
 const { Order } = require('../../models');
+const { kycUploadDir } = require('../../middleware/uploadKyc');
 
 exports.showOnboarding = async (req, res) => {
   const profile = await sellerService.getProfileByUserId(req.session.user.id);
@@ -11,7 +13,9 @@ exports.showOnboarding = async (req, res) => {
 
 exports.submitOnboarding = async (req, res) => {
   try {
-    const documentPath = req.file ? `/uploads/${req.file.filename}` : null;
+    // Only the generated filename is stored — the file lives outside public/
+    // and is only reachable through the authenticated download route below.
+    const documentPath = req.file ? req.file.filename : null;
     await sellerService.applyAsSeller(req.session.user.id, { ...req.body, documentPath });
     req.flash('success', 'Application submitted! An admin will review it shortly.');
     res.redirect('/seller/onboarding');
@@ -19,6 +23,15 @@ exports.submitOnboarding = async (req, res) => {
     req.flash('error', err.message);
     res.redirect('/seller/onboarding');
   }
+};
+
+exports.downloadOwnDocument = async (req, res) => {
+  const profile = await sellerService.getProfileByUserId(req.session.user.id);
+  if (!profile || !profile.documentPath) {
+    req.flash('error', 'No KYC document on file.');
+    return res.redirect('/seller/onboarding');
+  }
+  res.sendFile(path.join(kycUploadDir, path.basename(profile.documentPath)));
 };
 
 exports.dashboard = async (req, res) => {

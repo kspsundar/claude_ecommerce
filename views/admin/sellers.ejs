@@ -1,13 +1,20 @@
 <h1 class="h3 mb-4">Manage sellers</h1>
 
 <table class="table align-middle">
-  <thead><tr><th>Store</th><th>Owner</th><th>Status</th><th>Actions</th></tr></thead>
+  <thead><tr><th>Store</th><th>Owner</th><th>Status</th><th>KYC document</th><th>Actions</th></tr></thead>
   <tbody>
     <% sellers.forEach(function(s) { %>
       <tr>
         <td><%= s.storeName %></td>
         <td><%= s.User ? s.User.name + ' (' + s.User.email + ')' : '' %></td>
         <td><span class="badge bg-secondary"><%= s.status %></span></td>
+        <td>
+          <% if (s.documentPath) { %>
+            <a href="/admin/sellers/<%= s.id %>/document" target="_blank" rel="noopener">View</a>
+          <% } else { %>
+            <span class="text-muted">None</span>
+          <% } %>
+        </td>
         <td class="d-flex gap-1">
           <% ['approved', 'rejected', 'suspended', 'pending'].forEach(function(st) { %>
             <% if (st !== s.status) { %>

@@ -35,6 +35,10 @@ async function getProfileByUserId(userId) {
   return SellerProfile.findOne({ where: { userId }, include: [{ model: User, attributes: ['id', 'name', 'email'] }] });
 }
 
+async function getProfileById(id) {
+  return SellerProfile.findByPk(id);
+}
+
 async function requireApprovedSellerProfile(userId) {
   const profile = await getProfileByUserId(userId);
   if (!profile || profile.status !== 'approved') {
@@ -86,6 +90,7 @@ async function setSellerStatus(profileId, status) {
 module.exports = {
   applyAsSeller,
   getProfileByUserId,
+  getProfileById,
   requireApprovedSellerProfile,
   getDashboardStats,
   setSellerStatus

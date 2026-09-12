@@ -11,6 +11,7 @@ router.post('/admin/users/:id/ban', adminController.banUser);
 router.post('/admin/users/:id/unban', adminController.unbanUser);
 
 router.get('/admin/sellers', adminController.listSellers);
+router.get('/admin/sellers/:id/document', adminController.downloadSellerDocument);
 router.post('/admin/sellers/:id/status', adminController.setSellerStatus);
 
 router.get('/admin/products', adminController.listProducts);
