@@ -1,6 +1,7 @@
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 const { User } = require('../models');
+const notificationService = require('./notificationService');
 
 async function registerUser({ name, email, password, role }) {
   const existing = await User.findOne({ where: { email: email.toLowerCase() } });
@@ -16,6 +17,11 @@ async function registerUser({ name, email, password, role }) {
     email: email.toLowerCase(),
     password: hashed,
     role: role === 'seller' ? 'seller' : 'buyer'
+  });
+
+  // Best-effort: a broken mail server or missing VAPID keys must never fail signup.
+  notificationService.onUserRegistered(user).catch((err) => {
+    console.error('Signup notification pipeline failed:', err.message);
   });
 
   return user;

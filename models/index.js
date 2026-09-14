@@ -9,6 +9,8 @@ const ProductImage = require('./ProductImage');
 const CartItem = require('./CartItem');
 const Order = require('./Order');
 const OrderItem = require('./OrderItem');
+const PushSubscription = require('./PushSubscription');
+const NotificationLog = require('./NotificationLog');
 
 // User <-> SellerProfile (one-to-one)
 User.hasOne(SellerProfile, { foreignKey: 'userId', onDelete: 'CASCADE' });
@@ -60,6 +62,14 @@ OrderItem.belongsTo(Product, { foreignKey: 'productId' });
 SellerProfile.hasMany(OrderItem, { foreignKey: 'sellerId', as: 'orderItems' });
 OrderItem.belongsTo(SellerProfile, { foreignKey: 'sellerId', as: 'seller' });
 
+// User <-> PushSubscription (one browser/device per row; many per user)
+User.hasMany(PushSubscription, { foreignKey: 'userId', onDelete: 'CASCADE' });
+PushSubscription.belongsTo(User, { foreignKey: 'userId' });
+
+// User <-> NotificationLog (notification history; kept if the user is later removed)
+User.hasMany(NotificationLog, { foreignKey: 'userId', onDelete: 'SET NULL' });
+NotificationLog.belongsTo(User, { foreignKey: 'userId' });
+
 module.exports = {
   sequelize,
   User,
@@ -70,5 +80,7 @@ module.exports = {
   ProductImage,
   CartItem,
   Order,
-  OrderItem
+  OrderItem,
+  PushSubscription,
+  NotificationLog
 };

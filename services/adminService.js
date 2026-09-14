@@ -1,4 +1,4 @@
-const { User, SellerProfile, Product, Order } = require('../models');
+const { User, SellerProfile, Product, Order, NotificationLog } = require('../models');
 
 async function getDashboardStats() {
   const [userCount, sellerCount, pendingSellerCount, productCount, pendingProductCount, orders] = await Promise.all([
@@ -49,4 +49,12 @@ async function listPendingProducts() {
   return Product.findAll({ where: { status: 'pending' }, include: [{ model: SellerProfile, as: 'seller', attributes: ['storeName'] }], order: [['createdAt', 'ASC']] });
 }
 
-module.exports = { getDashboardStats, listUsers, setUserActive, listSellers, listPendingProducts };
+async function listNotifications() {
+  return NotificationLog.findAll({
+    include: [{ model: User, attributes: ['id', 'name', 'email'] }],
+    order: [['createdAt', 'DESC']],
+    limit: 100
+  });
+}
+
+module.exports = { getDashboardStats, listUsers, setUserActive, listSellers, listPendingProducts, listNotifications };

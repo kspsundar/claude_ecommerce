@@ -27,10 +27,12 @@ JSON REST API secured with JWT.
 - Order cancellation (restocks items)
 - Admin panel: dashboard/GMV, user ban/unban, seller approval, product
   moderation, category management, order overview
+- Signup notifications: welcome email to the new user, plus an email + web
+  push alert to admins whenever someone registers (see below)
 
 **Deferred / stubbed** (flagged in the original spec as out of scope for this
 first build): real payment gateway integration, shipping carrier APIs, coupons
-& marketing tools, reviews/ratings, notifications (email/SMS/push), search
+& marketing tools, reviews/ratings, SMS notifications, search
 engine (Elasticsearch/Algolia), analytics/BI integrations, OAuth login.
 
 ## Getting started
@@ -86,6 +88,47 @@ All authenticated endpoints expect `Authorization: Bearer <token>`.
 - `POST /api/v1/orders` — checkout, `{ addressId? }`
 - `GET  /api/v1/orders` / `GET /api/v1/orders/:id`
 - `POST /api/v1/orders/:id/cancel`
+
+## Signup notifications (email + web push)
+
+When a new account is created (via the web form or `POST /api/v1/auth/register`):
+
+1. The **new user** gets a welcome email.
+2. Every **admin** user gets a new-signup email, plus a browser push
+   notification if they've enabled push alerts.
+
+Every attempt (success or failure) is written to the `NotificationLogs` table
+and visible at `/admin/notifications`. A broken mail server or missing VAPID
+keys never blocks registration — failures are logged, not thrown.
+
+**Email** uses `nodemailer`. Set `SMTP_HOST`/`SMTP_PORT`/`SMTP_USER`/`SMTP_PASS`/`MAIL_FROM`
+in `.env`. With `SMTP_HOST` unset, emails are logged to the console instead of sent
+(handy for local dev).
+
+**Web push** uses the Push API + a service worker (`public/service-worker.js`),
+via `web-push` and VAPID keys:
+
+```bash
+npm run generate:vapid   # prints VAPID_PUBLIC_KEY / VAPID_PRIVATE_KEY to add to .env
+```
+
+Once the keys are set, an admin clicks **"Enable push notifications for new
+signups"** on `/admin` to grant browser permission and register a subscription
+(`PushSubscriptions` table). Without VAPID keys configured, push sends are
+skipped and logged as `failed` with an explanatory message — email alerts
+still go out.
+
+### New tables
+
+- **`PushSubscriptions`** — one row per browser/device a user has granted push
+  permission on: `userId` (FK → Users, cascade delete), `endpoint` (unique),
+  `p256dh`, `auth` (the browser's push encryption keys), `userAgent`.
+- **`NotificationLogs`** — audit trail of every notification attempt:
+  `userId` (FK → Users, nullable), `channel` (`email`/`push`), `event`
+  (e.g. `user_registered`, `admin_new_signup_alert`), `title`, `message`,
+  `status` (`sent`/`failed`), `errorMessage`.
+- **`Users`** gained `notifyByEmail` / `notifyByPush` booleans (default
+  `true`) so any user can be opted out of these notifications later.
 
 ## Notes
 

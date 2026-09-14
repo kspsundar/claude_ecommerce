@@ -16,6 +16,11 @@ exports.listUsers = async (req, res) => {
   res.render('admin/users', { title: 'Manage users', users });
 };
 
+exports.listNotifications = async (req, res) => {
+  const notifications = await adminService.listNotifications();
+  res.render('admin/notifications', { title: 'Notification log', notifications });
+};
+
 exports.banUser = async (req, res) => {
   await adminService.setUserActive(req.params.id, false);
   req.flash('success', 'User banned.');
