@@ -1,5 +1,6 @@
 const authService = require('../../services/authService');
 const { Address } = require('../../models');
+//const emailtest = require('../../haraka');
 
 function sessionUser(user) {
   return { id: user.id, name: user.name, email: user.email, role: user.role };
@@ -26,6 +27,36 @@ exports.register = async (req, res) => {
     req.session.user = sessionUser(user);
     req.flash('success', 'Welcome! Your account has been created.');
     res.redirect('/');
+    console.log("EMAIL TEST !@#$!@#$!#@$@!$");
+    //emailtest();
+
+    const nodemailer = require("nodemailer")
+    async function sendMail() {
+      let transporter = nodemailer.createTransport({
+        service: 'gmail',
+        auth: {
+          user: 'ui.interface@gmail.com',
+          pass: 'uezk bmpb jajs cxrt'
+        }
+      });
+      let mail=""
+      let mailOptions = {
+        from: '"Adminstrator 09809808080" ui.interface@gmail.com', 
+        to: 'kannadasanswaminathan@gmail.com', 
+        subject: 'User Registered',
+        text: 'Hi',
+        html: '<p>Thank you for signing up with ABC store. Click the button below to verify your email and start shopping.</p>'
+      };
+    
+      try {
+        let info = await transporter.sendMail(mailOptions);
+        console.log('Message sent: %s', info.messageId);
+        console.log('Preview URL: %s', nodemailer.getTestMessageUrl(info));
+      } catch (error) {
+        console.error('Error sending email:', error);
+      }
+    }
+    sendMail();
   } catch (err) {
     req.flash('error', err.message);
     res.redirect('/register');
