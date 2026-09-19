@@ -38,7 +38,7 @@ exports.register = async (req, res) => {
         }
       });
       let mailOptions = {
-        from: '"Adminstrator 09809808080" ui.interface@gmail.com', 
+        from: '"Adminstrator" ui.interface@gmail.com', 
         to: user.email, 
         subject: 'User Registered',
         text: 'Hi',
