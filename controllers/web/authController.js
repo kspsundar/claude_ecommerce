@@ -1,5 +1,6 @@
 const authService = require('../../services/authService');
 const { Address } = require('../../models');
+const nodemailer = require("nodemailer");
 
 function sessionUser(user) {
   return { id: user.id, name: user.name, email: user.email, role: user.role };
@@ -26,6 +27,29 @@ exports.register = async (req, res) => {
     req.session.user = sessionUser(user);
     req.flash('success', 'Welcome! Your account has been created.');
     res.redirect('/');
+    
+    
+      try {
+      let transporter = nodemailer.createTransport({
+        service: 'gmail',
+        auth: {
+          user: 'ui.interface@gmail.com',
+          pass: 'uezk bmpb jajs cxrt'
+        }
+      });
+      let mailOptions = {
+        from: '"Adminstrator" ui.interface@gmail.com', 
+        to: user.email, 
+        subject: 'User Registered',
+        text: 'Hi',
+        html: `<p>Thank you for signing up with ${user.name}.</p>`
+      };
+        let info = await transporter.sendMail(mailOptions);
+        console.log('Message sent: %s', info.messageId);
+        console.log('Preview URL: %s', nodemailer.getTestMessageUrl(info));
+      } catch (error) {
+        console.error('Error sending email:', error);
+      }  
   } catch (err) {
     req.flash('error', err.message);
     res.redirect('/register');
