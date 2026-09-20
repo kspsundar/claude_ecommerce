@@ -3,9 +3,11 @@ const router = express.Router();
 const sellerController = require('../../controllers/web/sellerController');
 const { requireAuth } = require('../../middleware/webAuth');
 const upload = require('../../middleware/upload');
+const { uploadKycOrFlash } = require('../../middleware/uploadKyc');
 
 router.get('/seller/onboarding', requireAuth, sellerController.showOnboarding);
-router.post('/seller/onboarding', requireAuth, upload.single('document'), sellerController.submitOnboarding);
+router.post('/seller/onboarding', requireAuth, uploadKycOrFlash, sellerController.submitOnboarding);
+router.get('/seller/onboarding/document', requireAuth, sellerController.downloadOwnDocument);
 
 router.get('/seller/dashboard', requireAuth, sellerController.dashboard);
 

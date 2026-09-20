@@ -8,6 +8,9 @@
       Go to your <a href="/seller/dashboard">seller dashboard</a>.
     <% } %>
   </div>
+  <% if (profile.documentPath) { %>
+    <p><a href="/seller/onboarding/document">View your submitted KYC document</a></p>
+  <% } %>
 <% } else { %>
   <form action="/seller/onboarding" method="POST" enctype="multipart/form-data" class="col-md-6">
     <div class="mb-3">
@@ -33,7 +36,8 @@
     </div> -->
     <div class="mb-3">
       <label class="form-label">ID / KYC document (optional)</label>
-      <input type="file" name="document" class="form-control">
+      <input type="file" name="document" class="form-control" accept=".pdf,.jpg,.jpeg,.doc,.docx">
+      <div class="form-text">PDF, JPG or Word document (.doc/.docx), up to 8MB.</div>
     </div>
     <button type="submit" class="btn btn-primary">Submit application</button>
   </form>

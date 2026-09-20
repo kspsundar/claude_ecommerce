@@ -10,5 +10,6 @@ router.use(require('./cartRoutes'));
 router.use(require('./orderRoutes'));
 router.use(require('./sellerRoutes'));
 router.use(require('./adminRoutes'));
+router.use(require('./pushRoutes'));
 
 module.exports = router;

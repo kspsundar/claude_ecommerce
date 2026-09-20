@@ -1,0 +1,285 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Public+Sans:wght@400;500;600;700&family=Cormorant+Garamond:wght@600&display=swap">
+  <style>
+    * { box-sizing: border-box; }
+    body { margin: 0; font-family: 'Public Sans', system-ui, -apple-system, sans-serif; }
+    a { color: var(--accent); text-decoration: none; }
+    a:hover { color: color-mix(in oklch, var(--accent) 80%, black); }
+    input, select { font-family: inherit; }
+    input:focus, select:focus, button:focus { outline: 2px solid var(--accent); outline-offset: 1px; }
+    .navlink { color: oklch(38% 0.01 260); font-size: 14px; font-weight: 500; transition: color .15s; }
+    .navlink:hover { color: oklch(15% 0.01 260); }
+    .field-label { font-size: 13px; font-weight: 600; color: oklch(35% 0.01 260); margin-bottom: 6px; display: block; }
+    .field-input { width: 100%; height: 46px; border-radius: 8px; border: 1px solid oklch(88% 0.008 260); background: oklch(99.5% 0.002 260); padding: 0 14px; font-size: 14px; color: oklch(20% 0.01 260); }
+    .field-input::placeholder { color: oklch(62% 0.01 260); }
+    .card { background: oklch(100% 0 0); border: 1px solid oklch(90% 0.006 260); border-radius: 14px; padding: 28px; }
+    .btn-primary { background: var(--accent); color: white; border: none; border-radius: 10px; font-weight: 600; cursor: pointer; }
+    .btn-primary:hover { background: color-mix(in oklch, var(--accent) 85%, black); }
+    .btn-secondary { background: oklch(97% 0.004 260); color: oklch(25% 0.01 260); border: 1px solid oklch(88% 0.008 260); border-radius: 8px; font-weight: 600; cursor: pointer; }
+    .btn-secondary:hover { background: oklch(94% 0.004 260); }
+    .checkbox { width: 18px; height: 18px; border-radius: 5px; border: 1.5px solid oklch(75% 0.01 260); flex-shrink: 0; }
+  </style>
+</helmet>
+
+<svg style="position:absolute;width:0;height:0" aria-hidden="true">
+  <symbol id="i-search" viewBox="0 0 24 24"><circle cx="11" cy="11" r="7" stroke="currentColor" stroke-width="1.6" fill="none"/><line x1="21" y1="21" x2="16.2" y2="16.2" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></symbol>
+  <symbol id="i-user" viewBox="0 0 24 24"><circle cx="12" cy="8.2" r="3.6" stroke="currentColor" stroke-width="1.6" fill="none"/><path d="M4.5 20c1.4-3.6 4.4-5.6 7.5-5.6s6.1 2 7.5 5.6" stroke="currentColor" stroke-width="1.6" fill="none" stroke-linecap="round"/></symbol>
+  <symbol id="i-bag" viewBox="0 0 24 24"><path d="M6.5 8h11l1 12.5h-13z" stroke="currentColor" stroke-width="1.6" fill="none" stroke-linejoin="round"/><path d="M9 8V6.5a3 3 0 0 1 6 0V8" stroke="currentColor" stroke-width="1.6" fill="none"/></symbol>
+  <symbol id="i-lock" viewBox="0 0 24 24"><rect x="5" y="10.5" width="14" height="9.5" rx="2" stroke="currentColor" stroke-width="1.6" fill="none"/><path d="M8 10.5V7.8a4 4 0 0 1 8 0v2.7" stroke="currentColor" stroke-width="1.6" fill="none"/></symbol>
+  <symbol id="i-check" viewBox="0 0 24 24"><path d="M5 12.5l4.5 4.5L19 7.5" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+  <symbol id="i-x" viewBox="0 0 24 24"><path d="M6 6l12 12M18 6L6 18" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></symbol>
+  <symbol id="i-minus" viewBox="0 0 24 24"><line x1="5" y1="12" x2="19" y2="12" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></symbol>
+  <symbol id="i-plus" viewBox="0 0 24 24"><line x1="5" y1="12" x2="19" y2="12" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/><line x1="12" y1="5" x2="12" y2="19" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></symbol>
+  <symbol id="i-chevron" viewBox="0 0 24 24"><path d="M6 9l6 6 6-6" stroke="currentColor" stroke-width="1.8" fill="none" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+  <symbol id="i-card" viewBox="0 0 24 24"><rect x="3" y="6" width="18" height="12" rx="2" stroke="currentColor" stroke-width="1.6" fill="none"/><line x1="3" y1="10" x2="21" y2="10" stroke="currentColor" stroke-width="1.6"/></symbol>
+  <symbol id="i-shirt" viewBox="0 0 24 24"><path d="M8 4L4 7l2 3 2-1.2V20h8V8.8l2 1.2 2-3-4-3-2 1.6h-4z" stroke="currentColor" stroke-width="1.4" fill="none" stroke-linejoin="round"/></symbol>
+  <symbol id="i-tote" viewBox="0 0 24 24"><path d="M5 9h14l-1 11H6z" stroke="currentColor" stroke-width="1.4" fill="none" stroke-linejoin="round"/><path d="M8.5 9V7a3.5 3.5 0 0 1 7 0v2" stroke="currentColor" stroke-width="1.4" fill="none"/></symbol>
+  <symbol id="i-beanie" viewBox="0 0 24 24"><path d="M5 14a7 7 0 0 1 14 0" stroke="currentColor" stroke-width="1.4" fill="none"/><rect x="4.5" y="14" width="15" height="3.4" rx="1.2" stroke="currentColor" stroke-width="1.4" fill="none"/><circle cx="12" cy="6" r="1.3" stroke="currentColor" stroke-width="1.4" fill="none"/></symbol>
+</svg>
+
+<div style="--accent: {{accent}}; width: 1440px; min-height: 1580px; background: oklch(98% 0.006 80); color: oklch(20% 0.01 260);">
+
+  <!-- NAV BAR -->
+  <div style="display: grid; grid-template-columns: 1fr auto 1fr; align-items: center; height: 76px; padding: 0 120px; background: oklch(100% 0 0); border-bottom: 1px solid oklch(91% 0.006 260);">
+    <div style="display: flex; align-items: center; gap: 10px; justify-self: start;">
+      <div style="width: 34px; height: 34px; border-radius: 50%; border: 1.5px solid var(--accent); display: flex; align-items: center; justify-content: center;">
+        <span style="font-family: 'Cormorant Garamond', serif; font-weight: 600; font-size: 17px; color: var(--accent);">M</span>
+      </div>
+      <span style="font-family: 'Cormorant Garamond', serif; font-weight: 600; font-size: 22px; letter-spacing: 0.06em; color: oklch(18% 0.01 260);">MERIDIAN</span>
+    </div>
+    <div style="display: flex; gap: 36px; justify-self: center;">
+      <a href="#" class="navlink">New In</a>
+      <a href="#" class="navlink">Women</a>
+      <a href="#" class="navlink">Men</a>
+      <a href="#" class="navlink">Sale</a>
+    </div>
+    <div style="display: flex; align-items: center; gap: 22px; justify-self: end; color: oklch(30% 0.01 260);">
+      <svg width="19" height="19"><use href="#i-search"/></svg>
+      <svg width="19" height="19"><use href="#i-user"/></svg>
+      <div style="position: relative;">
+        <svg width="20" height="20"><use href="#i-bag"/></svg>
+        <span style="position: absolute; top: -8px; right: -9px; width: 16px; height: 16px; border-radius: 50%; background: var(--accent); color: white; font-size: 10px; font-weight: 700; display: flex; align-items: center; justify-content: center;">3</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- MAIN -->
+  <div style="padding: 40px 120px 80px;">
+
+    <!-- Steps -->
+    <div style="display: flex; align-items: center; max-width: 480px; margin-bottom: 36px;">
+      <div style="display: flex; align-items: center; gap: 10px;">
+        <div style="width: 26px; height: 26px; border-radius: 50%; background: var(--accent); color: white; display: flex; align-items: center; justify-content: center;"><svg width="13" height="13"><use href="#i-check"/></svg></div>
+        <span style="font-size: 13px; font-weight: 600; color: oklch(30% 0.01 260);">Bag</span>
+      </div>
+      <div style="flex-grow: 1; height: 1px; background: var(--accent); margin: 0 12px;"></div>
+      <div style="display: flex; align-items: center; gap: 10px;">
+        <div style="width: 26px; height: 26px; border-radius: 50%; background: var(--accent); color: white; display: flex; align-items: center; justify-content: center;"><svg width="13" height="13"><use href="#i-check"/></svg></div>
+        <span style="font-size: 13px; font-weight: 600; color: oklch(30% 0.01 260);">Delivery</span>
+      </div>
+      <div style="flex-grow: 1; height: 1px; background: var(--accent); margin: 0 12px;"></div>
+      <div style="display: flex; align-items: center; gap: 10px;">
+        <div style="width: 26px; height: 26px; border-radius: 50%; background: white; border: 2px solid var(--accent); color: var(--accent); display: flex; align-items: center; justify-content: center; font-size: 12px; font-weight: 700;">3</div>
+        <span style="font-size: 13px; font-weight: 700; color: oklch(15% 0.01 260);">Payment</span>
+      </div>
+    </div>
+
+    <h1 style="font-size: 28px; font-weight: 700; margin: 0 0 4px; color: oklch(15% 0.01 260);">Checkout</h1>
+    <p style="font-size: 14px; color: oklch(48% 0.01 260); margin: 0 0 32px;">Review your order and enter your payment details to complete your purchase.</p>
+
+    <div style="display: grid; grid-template-columns: 1fr 400px; gap: 32px; align-items: start;">
+
+      <!-- LEFT COLUMN -->
+      <div style="display: flex; flex-direction: column; gap: 24px;">
+
+        <!-- Order items -->
+        <div class="card">
+          <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
+            <h2 style="font-size: 17px; font-weight: 700; margin: 0;">Order Items</h2>
+            <span style="font-size: 13px; color: oklch(50% 0.01 260);">3 items</span>
+          </div>
+
+          <div style="display: flex; align-items: center; gap: 16px; padding: 16px 0; border-bottom: 1px solid oklch(93% 0.006 260);">
+            <div style="width: 68px; height: 68px; border-radius: 10px; background: oklch(93% 0.03 250); display: flex; align-items: center; justify-content: center; color: oklch(45% 0.06 250); flex-shrink: 0;"><svg width="28" height="28"><use href="#i-shirt"/></svg></div>
+            <div style="flex-grow: 1;">
+              <div style="font-size: 15px; font-weight: 600; margin-bottom: 3px;">Cloudknit Overshirt</div>
+              <div style="font-size: 13px; color: oklch(52% 0.01 260);">Charcoal &middot; Medium</div>
+            </div>
+            <div style="display: flex; align-items: center; gap: 10px; border: 1px solid oklch(88% 0.008 260); border-radius: 999px; padding: 6px 10px;">
+              <svg width="12" height="12" style="color: oklch(45% 0.01 260);"><use href="#i-minus"/></svg>
+              <span style="font-size: 13px; font-weight: 600; width: 12px; text-align: center;">1</span>
+              <svg width="12" height="12" style="color: oklch(45% 0.01 260);"><use href="#i-plus"/></svg>
+            </div>
+            <div style="font-size: 15px; font-weight: 700; width: 72px; text-align: right;">$128.00</div>
+            <svg width="15" height="15" style="color: oklch(60% 0.01 260); flex-shrink: 0;"><use href="#i-x"/></svg>
+          </div>
+
+          <div style="display: flex; align-items: center; gap: 16px; padding: 16px 0; border-bottom: 1px solid oklch(93% 0.006 260);">
+            <div style="width: 68px; height: 68px; border-radius: 10px; background: oklch(94% 0.035 80); display: flex; align-items: center; justify-content: center; color: oklch(48% 0.07 80); flex-shrink: 0;"><svg width="28" height="28"><use href="#i-tote"/></svg></div>
+            <div style="flex-grow: 1;">
+              <div style="font-size: 15px; font-weight: 600; margin-bottom: 3px;">Trail Canvas Tote</div>
+              <div style="font-size: 13px; color: oklch(52% 0.01 260);">Sand</div>
+            </div>
+            <div style="display: flex; align-items: center; gap: 10px; border: 1px solid oklch(88% 0.008 260); border-radius: 999px; padding: 6px 10px;">
+              <svg width="12" height="12" style="color: oklch(45% 0.01 260);"><use href="#i-minus"/></svg>
+              <span style="font-size: 13px; font-weight: 600; width: 12px; text-align: center;">2</span>
+              <svg width="12" height="12" style="color: oklch(45% 0.01 260);"><use href="#i-plus"/></svg>
+            </div>
+            <div style="font-size: 15px; font-weight: 700; width: 72px; text-align: right;">$148.00</div>
+            <svg width="15" height="15" style="color: oklch(60% 0.01 260); flex-shrink: 0;"><use href="#i-x"/></svg>
+          </div>
+
+          <div style="display: flex; align-items: center; gap: 16px; padding: 16px 0;">
+            <div style="width: 68px; height: 68px; border-radius: 10px; background: oklch(93% 0.025 300); display: flex; align-items: center; justify-content: center; color: oklch(48% 0.06 300); flex-shrink: 0;"><svg width="28" height="28"><use href="#i-beanie"/></svg></div>
+            <div style="flex-grow: 1;">
+              <div style="font-size: 15px; font-weight: 600; margin-bottom: 3px;">Ridge Wool Beanie</div>
+              <div style="font-size: 13px; color: oklch(52% 0.01 260);">Ink Navy</div>
+            </div>
+            <div style="display: flex; align-items: center; gap: 10px; border: 1px solid oklch(88% 0.008 260); border-radius: 999px; padding: 6px 10px;">
+              <svg width="12" height="12" style="color: oklch(45% 0.01 260);"><use href="#i-minus"/></svg>
+              <span style="font-size: 13px; font-weight: 600; width: 12px; text-align: center;">1</span>
+              <svg width="12" height="12" style="color: oklch(45% 0.01 260);"><use href="#i-plus"/></svg>
+            </div>
+            <div style="font-size: 15px; font-weight: 700; width: 72px; text-align: right;">$42.00</div>
+            <svg width="15" height="15" style="color: oklch(60% 0.01 260); flex-shrink: 0;"><use href="#i-x"/></svg>
+          </div>
+        </div>
+
+        <!-- Payment method -->
+        <div class="card">
+          <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
+            <h2 style="font-size: 17px; font-weight: 700; margin: 0;">Payment Method</h2>
+            <div style="display: flex; gap: 6px;">
+              <div style="width: 30px; height: 20px; border-radius: 4px; background: oklch(90% 0.02 260);"></div>
+              <div style="width: 30px; height: 20px; border-radius: 4px; background: oklch(90% 0.05 40);"></div>
+              <div style="width: 30px; height: 20px; border-radius: 4px; background: oklch(90% 0.03 200);"></div>
+            </div>
+          </div>
+
+          <div style="display: grid; grid-template-columns: 1fr; gap: 16px; margin-bottom: 16px;">
+            <div>
+              <label class="field-label">Name on Card</label>
+              <input class="field-input" type="text" placeholder="Alex Morgan" />
+            </div>
+            <div>
+              <label class="field-label">Card Number</label>
+              <div style="position: relative;">
+                <input class="field-input" style="padding-right: 42px;" type="text" placeholder="1234  5678  9012  3456" />
+                <svg width="20" height="20" style="position: absolute; right: 13px; top: 13px; color: oklch(60% 0.01 260);"><use href="#i-card"/></svg>
+              </div>
+            </div>
+          </div>
+
+          <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-bottom: 18px;">
+            <div>
+              <label class="field-label">Expiry Date</label>
+              <input class="field-input" type="text" placeholder="MM / YY" />
+            </div>
+            <div>
+              <label class="field-label">CVV</label>
+              <input class="field-input" type="text" placeholder="•••" />
+            </div>
+          </div>
+
+          <div style="display: flex; align-items: center; gap: 10px;">
+            <div class="checkbox"></div>
+            <span style="font-size: 13px; color: oklch(40% 0.01 260);">Save this card for future purchases</span>
+          </div>
+        </div>
+
+        <!-- Billing address -->
+        <div class="card">
+          <h2 style="font-size: 17px; font-weight: 700; margin: 0 0 20px;">Billing Address</h2>
+
+          <div style="display: flex; align-items: center; gap: 10px; margin-bottom: 20px;">
+            <div class="checkbox" style="background: var(--accent); border-color: var(--accent); display: flex; align-items: center; justify-content: center; color: white;"><svg width="11" height="11"><use href="#i-check"/></svg></div>
+            <span style="font-size: 13px; color: oklch(40% 0.01 260);">Billing address same as shipping</span>
+          </div>
+
+          <div style="display: grid; grid-template-columns: 1fr; gap: 16px; margin-bottom: 16px;">
+            <div>
+              <label class="field-label">Country</label>
+              <div style="position: relative;">
+                <select class="field-input" style="appearance: none; color: oklch(20% 0.01 260);">
+                  <option>United States</option>
+                </select>
+                <svg width="16" height="16" style="position: absolute; right: 14px; top: 15px; color: oklch(55% 0.01 260); pointer-events: none;"><use href="#i-chevron"/></svg>
+              </div>
+            </div>
+            <div>
+              <label class="field-label">Address Line 1</label>
+              <input class="field-input" type="text" placeholder="483 Harbor View Road" />
+            </div>
+            <div>
+              <label class="field-label">Address Line 2 (optional)</label>
+              <input class="field-input" type="text" placeholder="Apt, suite, unit" />
+            </div>
+          </div>
+
+          <div style="display: grid; grid-template-columns: 1.3fr 1fr 1fr; gap: 16px;">
+            <div>
+              <label class="field-label">City</label>
+              <input class="field-input" type="text" placeholder="Portland" />
+            </div>
+            <div>
+              <label class="field-label">State</label>
+              <input class="field-input" type="text" placeholder="OR" />
+            </div>
+            <div>
+              <label class="field-label">ZIP Code</label>
+              <input class="field-input" type="text" placeholder="97205" />
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- RIGHT COLUMN -->
+      <div class="card" style="position: sticky; top: 32px;">
+        <h2 style="font-size: 17px; font-weight: 700; margin: 0 0 20px;">Order Summary</h2>
+
+        <div style="display: flex; gap: 10px; margin-bottom: 20px;">
+          <input class="field-input" type="text" placeholder="Promo code" style="flex-grow: 1;" />
+          <button class="btn-secondary" style="height: 46px; padding: 0 18px; font-size: 13px;">Apply</button>
+        </div>
+
+        <div style="display: flex; flex-direction: column; gap: 12px; padding-bottom: 18px; border-bottom: 1px solid oklch(91% 0.006 260); font-size: 14px;">
+          <div style="display: flex; justify-content: space-between; color: oklch(42% 0.01 260);"><span>Subtotal</span><span style="color: oklch(18% 0.01 260); font-weight: 600;">$318.00</span></div>
+          <div style="display: flex; justify-content: space-between; color: oklch(42% 0.01 260);"><span>Shipping</span><span style="color: oklch(18% 0.01 260); font-weight: 600;">$12.00</span></div>
+          <div style="display: flex; justify-content: space-between; color: oklch(42% 0.01 260);"><span>Estimated Tax</span><span style="color: oklch(18% 0.01 260); font-weight: 600;">$26.40</span></div>
+        </div>
+
+        <div style="display: flex; justify-content: space-between; align-items: baseline; margin: 18px 0 24px;">
+          <span style="font-size: 15px; font-weight: 700;">Total</span>
+          <span style="font-size: 24px; font-weight: 700;">$356.40</span>
+        </div>
+
+        <button class="btn-primary" style="width: 100%; height: 52px; font-size: 15px;">Place Order</button>
+
+        <div style="display: flex; align-items: center; justify-content: center; gap: 8px; margin-top: 16px; color: oklch(50% 0.01 260);">
+          <svg width="14" height="14"><use href="#i-lock"/></svg>
+          <span style="font-size: 12px;">Your payment info is encrypted and secure</span>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+</x-dc>
+<script data-dc-script data-props='{"accent":{"editor":"color","default":"oklch(45% 0.16 258)","options":["oklch(45% 0.16 258)","oklch(45% 0.14 25)","oklch(48% 0.12 155)","oklch(38% 0.02 260)"]}}'>
+class Component extends DCLogic {
+  renderVals() {
+    return { accent: this.props.accent ?? 'oklch(45% 0.16 258)' };
+  }
+}
+</script>
+</body>
+</html>

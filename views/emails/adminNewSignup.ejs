@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html>
+<head><meta charset="UTF-8"></head>
+<body style="font-family: Arial, sans-serif; color: #222;">
+  <h2>New user registration</h2>
+  <p>Hi <%= admin.name %>,</p>
+  <p>A new account was just created:</p>
+  <ul>
+    <li><strong>Name:</strong> <%= newUser.name %></li>
+    <li><strong>Email:</strong> <%= newUser.email %></li>
+    <li><strong>Role:</strong> <%= newUser.role %></li>
+  </ul>
+  <p><a href="/admin/users">View users in the admin dashboard</a></p>
+</body>
+</html>

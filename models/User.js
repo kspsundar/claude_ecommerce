@@ -16,7 +16,9 @@ const User = sequelize.define('User', {
     allowNull: false
   },
   phone: { type: DataTypes.STRING, allowNull: true },
-  isActive: { type: DataTypes.BOOLEAN, defaultValue: true }
+  isActive: { type: DataTypes.BOOLEAN, defaultValue: true },
+  notifyByEmail: { type: DataTypes.BOOLEAN, defaultValue: true },
+  notifyByPush: { type: DataTypes.BOOLEAN, defaultValue: true }
 });
 
 module.exports = User;
