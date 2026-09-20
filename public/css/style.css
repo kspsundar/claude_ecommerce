@@ -17,18 +17,21 @@ main {
 }
 .container-fluid img {
   margin:0 auto;
-  display:block;
-  width:150px;
+  display:block;  
+  width:160px;
+  height:160px;
+  object-fit:cover;
 }
 .container-fluid.products {
-  display:flex;
-  flex-direction: row;
-  gap:20px;
+  display:block;
+  flex-direction:unset;  
 }
 .container-fluid.products .custom_grids {
-  flex:1 auto;
-  height:160px;
+  display:inline-block;  
   overflow:hidden;
+  width:160px;
+  height:240px;
+  margin-right:50px;
 }
 .container-fluid.products .custom_grids a {  
   border-radius:75%;
