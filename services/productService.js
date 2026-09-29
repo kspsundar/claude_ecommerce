@@ -105,8 +105,7 @@ async function createProduct(sellerId, { title, description, price, stock, categ
     price,
     sku,
     stock: stock || 0,
-    status: 'pending',
-    imagePath
+    status: 'approved'
   });
 
   if (imagePaths.length) {

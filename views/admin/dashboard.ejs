@@ -6,7 +6,7 @@
   <div class="col-md-2 col-sm-4"><div class="card text-center p-3"><div class="h4"><%= stats.pendingSellerCount %></div><div class="text-muted small">Pending sellers</div></div></div>
   <div class="col-md-2 col-sm-4"><div class="card text-center p-3"><div class="h4"><%= stats.productCount %></div><div class="text-muted small">Products</div></div></div>
   <div class="col-md-2 col-sm-4"><div class="card text-center p-3"><div class="h4"><%= stats.pendingProductCount %></div><div class="text-muted small">Pending products</div></div></div>
-  <div class="col-md-2 col-sm-4"><div class="card text-center p-3"><div class="h4">$<%= stats.gmv.toFixed(2) %></div><div class="text-muted small">GMV</div></div></div>
+  <div class="col-md-2 col-sm-4"><div class="card text-center p-3"><div class="h4"><%- include('../partials/currency')%><%= stats.gmv.toFixed(2) %></div><div class="text-muted small">GMV</div></div></div>
 </div>
 
 <div class="d-flex gap-2 flex-wrap">

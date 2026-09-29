@@ -5,8 +5,19 @@
     <table class="table align-middle">
       <thead><tr><th>Name</th><th>Slug</th><th>Parent</th><th></th></tr></thead>
       <tbody>
-        <% categories.forEach(function(c) { %>
-          <tr>
+        <% var maincategory=[];%>
+        <% categories.forEach(function(c,i) { %>
+          <p style="border:0px solid #000;"><%=c.name%></p>
+
+           <%subcategories.forEach(function(d,j) { %>
+            <% if (c.id===d.categoryId) { %>
+    <p style="border:0px solid teal;"><%=d.title%></p>
+  <% } %>
+        <% }) %>
+          <!-- <% subcategories.forEach(function(d,j) { %>
+              <%maincategory.push(d.title)%>
+             <% }) %> -->
+          <!-- <tr>
             <td><%= c.name %></td>
             <td><%= c.slug %></td>
             <td><%= c.parentId ? (categories.find(x => x.id === c.parentId) || {}).name : '' %></td>
@@ -15,8 +26,32 @@
                 <button class="btn btn-sm btn-outline-danger">Delete</button>
               </form>
             </td>
+          </tr> -->
+
+           <!-- <% subcategories.forEach(function(c) { %>
+          <tr>
+            <td><%=c.title%></td>
           </tr>
-        <% }) %>
+        <% }) %> -->
+        <% }) %> 
+        <!-- <%=JSON.stringify(categories)%>      -->
+
+        <!-- <% subcategories.forEach(function(c) { %>
+          <tr>
+            <td><%= c.title %></td>
+            <td><%= c.slug %></td>
+            <td><%= c.parentId ? (categories.find(x => x.id === c.parentId) || {}).name : '' %></td>
+            <td>
+              <form action="/admin/categories/<%= c.id %>/delete" method="POST" onsubmit="return confirm('Delete this category?')">
+                <button class="btn btn-sm btn-outline-danger">Delete</button>
+              </form>
+            </td>
+          </tr>
+        <% }) %> -->
+        <!-- <span>096789768976876 <%= JSON.stringify(maincategory)%></span> -->
+
+       
+        <!-- <%=JSON.stringify(subcategories)%> -->
       </tbody>
     </table>
   </div>

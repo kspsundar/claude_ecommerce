@@ -18,7 +18,6 @@ const webRoutes = require('./routes/web');
 const apiRoutes = require('./routes/api');
 
 const app = express();
-
 app.set('view engine', 'ejs');
 app.set('views', path.join(__dirname, 'views'));
 app.use(expressLayouts);
@@ -44,7 +43,7 @@ app.use(attachUser);
 app.use((req, res, next) => {
   res.locals.success = req.flash('success');
   res.locals.error = req.flash('error');
-  res.locals.currentPath = req.path;
+  res.locals.currentPath = req.path;  
   next();
 });
 
@@ -56,6 +55,7 @@ app.use('/', webRoutes);
 
 app.use(notFound);
 app.use(errorHandler);
+app.locals.checkLogged = "ABC";
 
 const PORT = process.env.PORT || 3000;
 

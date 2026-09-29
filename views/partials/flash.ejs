@@ -2,32 +2,46 @@
   <div class="container flex-100">  
     <div class="container-fluid products">             
     
-            <div class="custom_grids">
+            <!-- <div class="custom_grids">
           <a href="https://vrikshamindia.com/collections/kundan-jadau-short-neckpiece?filter.v.availability=1&amp;filter.v.price.gte=&amp;filter.v.price.lte=&amp;sort_by=manual">
-         <img class="collage_Images image_outline objfitCover" src="../images/Short_Neckpiece_1080x.webp" loading="lazy">
+         <img class="collage_Images image_outline objfitCover" src="../../images/h1.jpg" loading="lazy">
           </a>
-         <p> Kundan Jadau Short Neckpieces </p>
-     </div>
+         <p>Gopuram design necklace with earrings </p>
+     </div> -->
     
-            <div class="custom_grids">
+            <!-- <div class="custom_grids">
           <a href="https://vrikshamindia.myshopify.com/search?q=Guttapusalu&amp;options%5Bprefix%5D=last&amp;type=product&amp;id=48216205066541&amp;quantity=1">
-         <img class="collage_Images image_outline objfitCover" src="../images/Guttapusalu_1080x.webp" loading="lazy">
+         <img class="collage_Images image_outline objfitCover" src="../../images/h2.jpg" loading="lazy">
           </a>
-         <p> Guttapusalu </p>
-     </div>
+         <p> Ganesha design pendant necklace with earrings </p>
+     </div> -->
     
-            <div class="custom_grids">
+        <!--<div class="custom_grids">
           <a href="https://vrikshamindia.com/collections/bridal-set?filter.v.availability=1&amp;filter.v.price.gte=&amp;filter.v.price.lte=&amp;sort_by=created-descending">
-         <img class="collage_Images image_outline objfitCover" src="../images/IMG_0180_1080x.webp" loading="lazy">
+         <img class="collage_Images image_outline objfitCover" src="../../images/h3.jpg" loading="lazy">
           </a>
          <p> Bridal Sets </p>
-     </div>
+     </div>-->
     </div> 
+
   <% success.forEach(function(msg) { %>
     <div class="alert alert-success alert-dismissible fade show" role="alert">
       <%= msg %>
+      <% let show = false; %>
+      <% if (!msg.includes('Welcome')) { %>
+        <% show=true;%>
+      <% } %>
       <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
     </div>
+            <script type="text/javascript">
+  let s="<%=show%>";
+  if(s){
+    // document.querySelector(".dropdown").style.display="none";
+    // document.querySelector(".nav-item.login").style.display="block";
+    // document.querySelector(".nav-item.signup").style.display="block";
+  }
+  console.log(s);
+</script>
   <% }) %>
 <% } %>
 <% if (error && error.length) { %>

@@ -2,5 +2,6 @@ const categoryService = require('../../services/categoryService');
 
 exports.list = async (req, res) => {
   const categories = await categoryService.listAll();
-  res.json({ categories });
+  const subcategories = await categoryService.listAllSubCategory();
+  res.json({categories:categories,subcategories:subcategories});
 };

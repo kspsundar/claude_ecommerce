@@ -9,7 +9,7 @@
         <td><%= item.Order.buyer ? item.Order.buyer.name : '' %></td>
         <td><%= item.Product ? item.Product.title : item.titleSnapshot %></td>
         <td><%= item.quantity %></td>
-        <td>$<%= item.price.toFixed(2) %></td>
+        <td><%- include('currency')%><%= item.price.toFixed(2) %></td>
         <td><span class="badge bg-secondary"><%= item.status %></span></td>
         <td>
           <form action="/seller/orders/<%= item.id %>/status" method="POST" class="d-flex gap-1">

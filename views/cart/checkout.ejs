@@ -7,12 +7,12 @@
       <% cart.items.forEach(function(item) { %>
         <li class="list-group-item d-flex justify-content-between">
           <span><%= item.Product.title %> &times; <%= item.quantity %></span>
-          <span>$<%= (item.Product.price * item.quantity).toFixed(2) %></span>
+          <span><%- include('currency')%><%= (item.Product.price * item.quantity).toFixed(2) %></span>
         </li>
       <% }) %>
       <li class="list-group-item d-flex justify-content-between fw-bold">
         <span>Total</span>
-        <span>$<%= cart.total.toFixed(2) %></span>
+        <span><%- include('currency')%><%= cart.total.toFixed(2) %></span>
       </li>
     </ul>
   </div>

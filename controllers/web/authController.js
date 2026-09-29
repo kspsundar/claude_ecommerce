@@ -9,9 +9,8 @@ function sessionUser(user) {
 exports.showRegister = (req, res) => {
   res.render('auth/register', { title: 'Create account' });
 };
-
 exports.register = async (req, res) => {
-  const { name, email, password, confirmPassword, role } = req.body;
+  const { name, email, password, confirmPassword, role, sellerOption } = req.body;
 
   if (!name || !email || !password) {
     req.flash('error', 'Name, email and password are required.');
@@ -23,7 +22,7 @@ exports.register = async (req, res) => {
   }
 
   try {
-    const user = await authService.registerUser({ name, email, password, role });
+    const user = await authService.registerUser({ name, email, password, role, sellerOption });
     req.session.user = sessionUser(user);
     req.flash('success', 'Welcome! Your account has been created.');
     res.redirect('/');
@@ -68,9 +67,9 @@ exports.login = async (req, res) => {
       req.flash('error', 'Invalid email or password.');
       return res.redirect('/login');
     }
-    req.session.user = sessionUser(user);
+    req.session.user = sessionUser(user);       
     req.flash('success', `Welcome back, ${user.name}!`);
-    res.redirect(req.body.next || '/');
+    return res.redirect('/');
   } catch (err) {
     req.flash('error', err.message);
     res.redirect('/login');
@@ -78,7 +77,7 @@ exports.login = async (req, res) => {
 };
 
 exports.logout = (req, res) => {
-  req.session.destroy(() => res.redirect('/'));
+  req.session.destroy(() => res.redirect('/'));  
 };
 
 exports.showProfile = async (req, res) => {

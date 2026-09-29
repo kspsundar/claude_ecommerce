@@ -3,7 +3,7 @@ const jwt = require('jsonwebtoken');
 const { User } = require('../models');
 const notificationService = require('./notificationService');
 
-async function registerUser({ name, email, password, role }) {
+async function registerUser({ name, email, password, role, sellerOption }) {
   const existing = await User.findOne({ where: { email: email.toLowerCase() } });
   if (existing) {
     const err = new Error('An account with this email already exists.');
@@ -16,7 +16,7 @@ async function registerUser({ name, email, password, role }) {
     name,
     email: email.toLowerCase(),
     password: hashed,
-    role: role === 'seller' ? 'seller' : 'buyer'
+    role: sellerOption === 'seller' ? 'seller' : 'buyer',    
   });
 
   // Best-effort: a broken mail server or missing VAPID keys must never fail signup.

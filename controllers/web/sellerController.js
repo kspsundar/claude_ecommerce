@@ -66,7 +66,7 @@ exports.createProduct = async (req, res) => {
     },
     imagePaths
   );
-  req.flash('success', 'Product submitted for admin approval.');
+  req.flash('success', 'Product created successfully');
   res.redirect('/seller/products');
 };
 

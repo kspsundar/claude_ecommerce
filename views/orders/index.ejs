@@ -11,7 +11,7 @@
           <td>#<%= order.id %></td>
           <td><%= order.createdAt.toDateString() %></td>
           <td><%= order.items.length %></td>
-          <td>$<%= order.totalAmount.toFixed(2) %></td>
+          <td><%- include('currency')%><%= order.totalAmount.toFixed(2) %></td>
           <td><span class="badge bg-secondary"><%= order.status %></span></td>
           <td><a href="/orders/<%= order.id %>" class="btn btn-sm btn-outline-primary">View</a></td>
         </tr>

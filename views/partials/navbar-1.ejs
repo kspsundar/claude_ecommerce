@@ -1,34 +1,41 @@
-<nav class="navbar navbar-expand-lg navbar-dark bg-dark flex-flow-none custom-bg">         
+<nav class="navbar navbar-expand-lg navbar-dark custom-bg flex-flow-none">
+  <!-- <div class="container-fluid p-3 flex-100">
+      <img alt="Virutcham" src="../images/virutcham-logo.jpg" />      
+    </div> -->
+   
+    <!-- <a class="navbar-brand" href="/">🛒 MarketPlace</a> -->
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navMain">
       <span class="navbar-toggler-icon"></span>
     </button>
     <div class="collapse navbar-collapse" id="navMain">
       <ul  class="navbar-nav ms-auto align-items-lg-center">
-         <li class="nav-item"><a class="nav-link" href="/category/gold">Gold</a></li>
-       <li class="nav-item"><a class="nav-link" href="/category/oxidised">Oxidised</a></li>
-       <li class="nav-item"><a class="nav-link" href="/category/choker">Choker</a></li>
-       <li class="nav-item"><a class="nav-link" href="/category/bharatanatyam">Bharatanatyam</a></li>
-       <li class="nav-item"><a class="nav-link" href="/category/artificial-flowers">Artificial Flowers</a></li>
-       <li class="nav-item"><a class="nav-link" href="/category/handmade">Handmade</a></li>
+         <li class="nav-item"><a class="nav-link" href="/categories/gold">Gold</a></li>
+       <li class="nav-item"><a class="nav-link" href="/categories/oxidised">Oxidised</a></li>
+       <li class="nav-item"><a class="nav-link" href="/categories/oxidised">Earrings</a></li>
+       <li class="nav-item"><a class="nav-link" href="/categories/oxidised">Bangles</a></li>
+       <li class="nav-item"><a class="nav-link" href="/categories/bharatanatyam">Bharatanatyam</a></li>
+       <li class="nav-item"><a class="nav-link" href="/categories/artificial-flowers">Artificial Flowers</a></li>
+       <li class="nav-item"><a class="nav-link" href="/categories/hand-made">Handmade</a></li>
+       <!-- <li class="nav-item"><a class="nav-link" href="/orders">Orders</a></li> -->
       </ul>
        <form class="d-flex mx-auto" style="max-width:480px;width:100%;" action="/products" method="GET">
         <input class="form-control me-2" type="search" name="q" placeholder="Search products..." value="<%= typeof query !== 'undefined' && query.q ? query.q : '' %>">
         <button class="btn btn-outline-light" type="submit">Search</button>
       </form>
       <ul class="navbar-nav ms-auto align-items-lg-center">               
-          <% if (currentUser) { %>
+          <!-- <% if (currentUser) { %>
          
-          <% if (currentUser.role === 'seller') { %>
+          <% if (currentUser.role === 'seller') { %> -->
             <li class="nav-item"><a class="nav-link" href="/seller/dashboard">Seller</a></li>
-          <% } else { %>
+          <!-- <% } else { %> -->
             <li class="nav-item"><a class="nav-link" href="/seller/onboarding">Seller</a></li>
-          <% } %>
-          <% if (currentUser.role === 'admin') { %>
+          <!-- <% } %>
+          <% if (currentUser.role === 'admin') { %> -->
             <li class="nav-item"><a class="nav-link" href="/admin">Admin</a></li>
-          <% } %>
+          <!-- <% } %> -->
       </ul>           
       <ul class="navbar-nav ms-auto align-items-lg-center">                          
-          <li class="nav-item dropdown">
+          <!-- <li class="nav-item dropdown">
             <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"><%= currentUser.name %></a>
             <ul class="dropdown-menu dropdown-menu-end">
               <li><a class="dropdown-item" href="/profile">My profile</a></li>
@@ -38,11 +45,13 @@
                 </form>
               </li>
             </ul>
-          </li>
-        <% } else { %>          
+          </li> -->
+           <li class="nav-item login" style="display:none;"><a class="nav-link" href="/login">Log in</a></li>
+          <li class="nav-item signup" style="display:none;"><a class="nav-link" href="/register">Sign up</a></li>
+        <!-- <% } else { %>           -->
           <li class="nav-item"><a class="nav-link" href="/login">Log in</a></li>
           <li class="nav-item"><a class="nav-link" href="/register">Sign up</a></li>
-        <% } %>
+        <!-- <% } %> -->
       </ul>
     </div>
   </div>

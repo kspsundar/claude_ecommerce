@@ -38,3 +38,10 @@ main {
   display:inline-block;
   overflow:hidden;  
 }
+.custom-bg {
+  background:#b6157b !important;
+}
+
+footer div {
+  color:rgba(255,255,255,0.55);
+}

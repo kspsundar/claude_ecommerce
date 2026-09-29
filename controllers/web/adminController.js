@@ -62,6 +62,11 @@ exports.listProducts = async (req, res) => {
   res.render('admin/products', { title: 'Moderate products', pending });
 };
 
+exports.listProductsByCategory = async (req, res) => {
+  const approved = await adminService.listProductsByCategory(req.params.id);
+  res.render('admin/products', { title: 'List of products', approved });
+};
+
 exports.setProductStatus = async (req, res) => {
   try {
     await productService.setModerationStatus(req.params.id, req.body.status);
@@ -74,7 +79,8 @@ exports.setProductStatus = async (req, res) => {
 
 exports.listCategories = async (req, res) => {
   const categories = await categoryService.listAll();
-  res.render('admin/categories', { title: 'Manage categories', categories });
+  const subcategories = await categoryService.listAllSubCategory();
+  res.render('admin/categories', { title: 'Manage categories', categories:categories,subcategories:subcategories });
 };
 
 exports.createCategory = async (req, res) => {

@@ -10,7 +10,7 @@
   <div class="col-md-6">
     <h1 class="h3"><%= product.title %></h1>
     <p class="text-muted">Sold by <%= product.seller ? product.seller.storeName : 'Unknown seller' %><% if (product.Category) { %> &middot; <%= product.Category.name %><% } %></p>
-    <p class="display-6">$<%= product.price.toFixed(2) %></p>
+    <p class="display-6"><%- include('../partials/currency')%><%= product.price.toFixed(2) %></p>
     <p><%= product.stock > 0 ? product.stock + ' in stock' : 'Out of stock' %></p>
     <p><%= product.description %></p>
 

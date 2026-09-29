@@ -9,7 +9,7 @@
     <% products.forEach(function(p) { %>
       <tr>
         <td><%= p.title %></td>
-        <td>$<%= p.price.toFixed(2) %></td>
+        <td><%- include('../partials/currency')%><%= p.price.toFixed(2) %></td>
         <td><%= p.stock %></td>
         <td><span class="badge bg-secondary"><%= p.status %></span></td>
         <td class="d-flex gap-2">

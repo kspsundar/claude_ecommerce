@@ -13,9 +13,9 @@ router.get('/seller/dashboard', requireAuth, sellerController.dashboard);
 
 router.get('/seller/products', requireAuth, sellerController.listProducts);
 router.get('/seller/products/new', requireAuth, sellerController.showNewProduct);
-router.post('/seller/products', requireAuth, upload.array('images', 5), sellerController.createProduct);
+router.post('/seller/products', requireAuth, upload.array('images', 1), sellerController.createProduct);
 router.get('/seller/products/:id/edit', requireAuth, sellerController.showEditProduct);
-router.post('/seller/products/:id', requireAuth, upload.array('images', 5), sellerController.updateProduct);
+router.post('/seller/products/:id', requireAuth, upload.array('images', 1), sellerController.updateProduct);
 router.post('/seller/products/:id/delete', requireAuth, sellerController.deleteProduct);
 
 router.get('/seller/orders', requireAuth, sellerController.listOrders);
