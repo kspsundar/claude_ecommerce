@@ -11,7 +11,7 @@
       <tr>
         <td><%= p.title %></td>
         <td><%= p.seller ? p.seller.storeName : '' %></td>
-        <td><%- include('currency')%><%= p.price.toFixed(2) %></td>
+        <td><%- include('../partials/currency')%><%= p.price.toFixed(2) %></td>
         <td class="d-flex gap-1">
           <form action="/admin/products/<%= p.id %>/status" method="POST">
             <input type="hidden" name="status" value="approved">

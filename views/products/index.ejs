@@ -2,10 +2,22 @@
   <aside class="col-md-3 mb-4">
     <h2 class="h6">Categories</h2>
     <ul class="list-unstyled">
-      <li><a href="/products">All</a></li>
-      <% categories.forEach(function(cat) { %>
-        <li><a href="/categories/<%= cat.slug %>" class="<%= typeof activeCategory !== 'undefined' && activeCategory && activeCategory.id === cat.id ? 'fw-bold' : '' %>"><%= cat.name %></a></li>
-      <% }) %>
+      <li><a href="/products">All</a></li>  
+      <% if(typeof activeCategory!=="undefined") { %>
+        <% categories.forEach(function(cat) { %>  
+        <!-- <%=activeCategory.id%> -->
+        <li><a href="/categories/<%= cat.slug %>" class="<%= typeof activeCategory !== 'undefined' && activeCategory && activeCategory.id === cat.id ? 'fw-bold' : '' %>"><%= cat.name %></a></li>       
+          <% products.forEach(function(product) { %>              
+             <% if (activeCategory.id===cat.id) { %>
+          <%- include('../partials/productList', { product }) %>
+          <% } %>
+          <% }) %>
+      <% }) %>     
+      <%} else {%>
+        <% categories.forEach(function(cat) { %>  
+          <li><a href="/categories/<%= cat.slug %>" class="<%= typeof activeCategory !== 'undefined' && activeCategory && activeCategory.id === cat.id ? 'fw-bold' : '' %>"><%= cat.name %></a></li>
+          <% }) %>
+        <%}%>
     </ul>
     <hr>
     <h2 class="h6">Filter</h2>
